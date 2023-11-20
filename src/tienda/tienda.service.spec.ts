@@ -29,9 +29,11 @@ describe('TiendaService', () => {
     for(let i = 0; i < 5; i++){
       const tienda: TiendaEntity = await repository.save({
         nombre: faker.word.noun(),
-        ciudad:  faker.location.city(),
-        direccion: faker.location.streetAddress({ useFullAddress: true }),
+        ciudad:  faker.word.interjection(3),
+        direccion: faker.location.streetAddress({ useFullAddress: true })
     })
+    tiendasList.push(tienda)
+  }
   }
    
   it('should be defined', () => {
@@ -61,7 +63,7 @@ describe('TiendaService', () => {
     const tienda: TiendaEntity = {
       id: "",
       nombre: faker.word.noun(),
-      ciudad: faker.location.city(),
+      ciudad: faker.word.interjection(3),
       direccion: faker.location.streetAddress({ useFullAddress: true }),
       productos: [],
     }
@@ -84,7 +86,6 @@ describe('TiendaService', () => {
     const storedTienda: TiendaEntity = await repository.findOne({ where: { id: tienda.id}});
     expect(storedTienda).not.toBeNull();
     expect(storedTienda.nombre).toEqual(tienda.nombre)
-    
   });
 
   it('update should throw an exception for an invalid tienda', async () => {
@@ -107,6 +108,6 @@ describe('TiendaService', () => {
     await service.delete(tienda.id)
     await expect(() => service.delete("0")).rejects.toHaveProperty("message", "The tienda with the given id was not found")
   });
-  }
+  
  });
  

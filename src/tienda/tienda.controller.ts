@@ -6,7 +6,7 @@ import { TiendaService } from './tienda.service';
 import { TiendaEntity } from './tienda.entity';
 import { TiendaDto } from './tienda.dto';
 
-@Controller('tiendas')
+@Controller('stores')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class TiendaController {
     constructor(private readonly tiendaService: TiendaService) {}

@@ -6,33 +6,33 @@ import { ProductoTiendaService } from './producto-tienda.service';
 import { TiendaDto } from '../tienda/tienda.dto';
 import { TiendaEntity } from 'src/tienda/tienda.entity';
 
-@Controller('productos')
+@Controller('products')
 @UseInterceptors(BusinessErrorsInterceptor)
 export class ProductoTiendaController {
     constructor(private readonly productoTiendaService: ProductoTiendaService){}
 
-    @Post(':productoId/tiendas/:tiendaId')
+    @Post(':productoId/stores/:tiendaId')
     async addTiendaToProducto(@Param('productoId') productoId: string, @Param('tiendaId') tiendaId: string){
        return await this.productoTiendaService.addTiendaToProducto(productoId, tiendaId);
     }
 
-    @Get(':productoId/tiendas/:tiendaId')
+    @Get(':productoId/stores/:tiendaId')
     async findTiendaFromProducto(@Param('productoId') productoId: string, @Param('tiendaId') tiendaId: string){
         return await this.productoTiendaService.findTiendaFromProducto(productoId, tiendaId);
     }
 
-    @Get(':productoId/tiendas')
+    @Get(':productoId/stores')
     async findTiendasFromProducto(@Param('productoId') productoId: string){
         return await this.productoTiendaService.findTiendasFromProducto(productoId);
     }
 
-    @Put(':productoId/tiendas')
+    @Put(':productoId/stores')
     async updateTiendasFromProducto(@Body() tiendasDto: TiendaDto[], @Param('productoId') productoId: string){
         const tiendas = plainToInstance(TiendaEntity, tiendasDto)
         return await this.productoTiendaService.updateTiendasFromProducto(productoId, tiendas);
     }
 
-    @Delete(':productoId/tiendas/:tiendaId')
+    @Delete(':productoId/stores/:tiendaId')
     @HttpCode(204)
     async deleteTiendaFromProducto(@Param('productoId') productoId: string, @Param('tiendaId') tiendaId: string){
         return await this.productoTiendaService.deleteTiendaFromProducto(productoId, tiendaId);

@@ -41,6 +41,11 @@ export class ProductoService {
   }
 
   async update(id: string, producto: ProductoEntity): Promise<ProductoEntity> {
+
+    if (!producto || !this.tiposProductoPermitidos.includes(producto.tipo) ) {
+      throw new BusinessLogicException("Invalid producto data", BusinessError.PRECONDITION_FAILED);
+    }
+
     const persistedProducto: ProductoEntity = await this.productoRepository.findOne({ where: { id } });
 
     if (!persistedProducto) {
